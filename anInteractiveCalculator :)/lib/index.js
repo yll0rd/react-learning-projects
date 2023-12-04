@@ -1,34 +1,47 @@
 "use strict";
 
-function Calcutor() {
+function handleOperator() {}
+function handleNumber() {
+  alert("Handle number click");
+}
+function Calculator() {
   return /*#__PURE__*/React.createElement("div", {
     className: "calculator"
   }, /*#__PURE__*/React.createElement("div", {
     className: "display"
   }, "0"), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 7
+    value: 7,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 8
+    value: 8,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 9
+    value: 9,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
     className: "operator",
     value: "/"
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 4
+    value: 4,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 5
+    value: 5,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 6
+    value: 6,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
     className: "operator",
     value: "*"
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 1
+    value: 1,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 2
+    value: 2,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 3
+    value: 3,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
     className: "operator",
     value: "-"
@@ -45,11 +58,12 @@ function Calcutor() {
 }
 function CalcButton(props) {
   return /*#__PURE__*/React.createElement("button", {
-    className: props.className
+    className: props.className,
+    onClick: props.onClick
   }, props.value);
 }
 // const hello = React.createElement('h1', {}, 'Hello React');
 ReactDOM.render( /*#__PURE__*/React.createElement("div", {
   className: "app-container"
-}, /*#__PURE__*/React.createElement(Calcutor, null)), document.querySelector(".root"));
+}, /*#__PURE__*/React.createElement(Calculator, null)), document.querySelector(".root"));
 // ReactDOM.render(hello(), document.querySelector(".root"));
