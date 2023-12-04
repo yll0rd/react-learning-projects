@@ -1,6 +1,6 @@
-function handleOperator() {}
-function handleNumber() {
-    alert("Handle number click");
+function handleOperator(value) {}
+function handleNumber(value) {
+    alert("Handle number click " + value);
 }
 
 function Calculator () {
@@ -30,7 +30,7 @@ function Calculator () {
     )
 }
 function CalcButton (props) {
-    return <button className={props.className} onClick={props.onClick}>{props.value}</button>
+    return <button className={props.className} onClick={() => {props.onClick(props.value)}}>{props.value}</button>
 }
 // const hello = React.createElement('h1', {}, 'Hello React');
 ReactDOM.render(<div className='app-container'><Calculator/></div>, document.querySelector(".root"));

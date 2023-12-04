@@ -1,8 +1,8 @@
 "use strict";
 
-function handleOperator() {}
-function handleNumber() {
-  alert("Handle number click");
+function handleOperator(value) {}
+function handleNumber(value) {
+  alert("Handle number click " + value);
 }
 function Calculator() {
   return /*#__PURE__*/React.createElement("div", {
@@ -59,7 +59,9 @@ function Calculator() {
 function CalcButton(props) {
   return /*#__PURE__*/React.createElement("button", {
     className: props.className,
-    onClick: props.onClick
+    onClick: function onClick() {
+      props.onClick(props.value);
+    }
   }, props.value);
 }
 // const hello = React.createElement('h1', {}, 'Hello React');
