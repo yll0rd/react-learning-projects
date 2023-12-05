@@ -7,20 +7,78 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function Calculator() {
-  var _React$useState = React.useState(0),
+  var _React$useState = React.useState({
+      current: "0",
+      total: "0",
+      isInitial: true,
+      preOp: ""
+    }),
     _React$useState2 = _slicedToArray(_React$useState, 2),
-    display = _React$useState2[0],
-    setDisplay = _React$useState2[1];
-  function handleOperator(value) {}
+    calc = _React$useState2[0],
+    setCalc = _React$useState2[1];
+  function handleOperator(value) {
+    var total = doCalculation();
+    console.log(total);
+    setCalc({
+      current: total.toString(),
+      total: total.toString(),
+      isInitial: true,
+      preOp: value
+    });
+  }
+  function doCalculation() {
+    var total = parseInt(calc.total);
+    // debugger;
+    console.log(calc);
+    switch (calc.preOp) {
+      case "+":
+        total += parseInt(calc.current);
+        break;
+      case "-":
+        total -= parseInt(calc.current);
+        break;
+      case "*":
+        // calc.current === '0' ? total *= 1 : total *= parseInt(calc.current)
+        total *= parseInt(calc.current);
+        break;
+      case "/":
+        total /= parseInt(calc.current);
+        // calc.current === '0' ? total /= 1 : total /= parseInt(calc.current)
+        break;
+      default:
+        total = parseInt(calc.current);
+        break;
+    }
+    return total;
+  }
   function handleNumber(value) {
-    alert("Handle number click " + value);
-    setDisplay(value);
+    var newValue = value.toString();
+    if (!calc.isInitial) {
+      newValue = calc.current + newValue;
+    }
+    setCalc({
+      current: newValue,
+      total: calc.total,
+      isInitial: false,
+      preOp: calc.preOp
+    });
+  }
+  function renderDisplay() {
+    return calc.current;
+  }
+  function handleClear() {
+    setCalc({
+      current: "0",
+      total: "0",
+      isInitial: true,
+      preOp: ""
+    });
   }
   return /*#__PURE__*/React.createElement("div", {
     className: "calculator"
   }, /*#__PURE__*/React.createElement("div", {
     className: "display"
-  }, display), /*#__PURE__*/React.createElement(CalcButton, {
+  }, renderDisplay()), /*#__PURE__*/React.createElement(CalcButton, {
     value: 7,
     onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
@@ -31,7 +89,8 @@ function Calculator() {
     onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
     className: "operator",
-    value: "/"
+    value: "/",
+    onClick: handleOperator
   }), /*#__PURE__*/React.createElement(CalcButton, {
     value: 4,
     onClick: handleNumber
@@ -43,7 +102,8 @@ function Calculator() {
     onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
     className: "operator",
-    value: "*"
+    value: "*",
+    onClick: handleOperator
   }), /*#__PURE__*/React.createElement(CalcButton, {
     value: 1,
     onClick: handleNumber
@@ -55,16 +115,21 @@ function Calculator() {
     onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
     className: "operator",
-    value: "-"
+    value: "-",
+    onClick: handleOperator
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: "C"
+    value: "C",
+    onClick: handleClear
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: 0
+    value: 0,
+    onClick: handleNumber
   }), /*#__PURE__*/React.createElement(CalcButton, {
-    value: "="
+    value: "=",
+    onClick: handleOperator
   }), /*#__PURE__*/React.createElement(CalcButton, {
     className: "operator",
-    value: "+"
+    value: "+",
+    onClick: handleOperator
   }));
 }
 function CalcButton(props) {
