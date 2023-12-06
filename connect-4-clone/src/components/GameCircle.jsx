@@ -5,15 +5,14 @@ import '../Game.css'
 
 
 // eslint-disable-next-line react/prop-types
-const GameCircle = ({id, onCircleClicked}) => {
+const GameCircle = ({id, className, onCircleClicked}) => {
 
     // const onClick = (ev, id) => {
     //     onCircleClicked(id)
     // }
 
-    const isEvenClass = id % 2 === 0 ? 'even' : 'odd';
     return (
-        <div className={`gameCircle ${isEvenClass}`} id={id} onClick={() => onCircleClicked(id)}>
+        <div className={`gameCircle ${className}`} id={id} onClick={() => onCircleClicked(id)}>
         </div>
     );
 };
