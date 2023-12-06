@@ -1,12 +1,13 @@
 import React from 'react';
 
-const onClick = () => {
-    alert('on click')
+const onClick = (ev, id) => {
+    alert('on click ' + id)
 }
 
-const GameCircle = ({children}) => {
+const GameCircle = ({id, color, children}) => {
+    console.log(color)
     return (
-        <div onClick={onClick}>
+        <div style={{ backgroundColor: color }} onClick={(ev) => onClick(ev, id)}>
             {children}
         </div>
     );
