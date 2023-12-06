@@ -1,17 +1,19 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import '../Game.css'
 
-const onClick = (ev, id) => {
-    alert('on click ' + id)
-}
 
-const GameCircle = ({id, color, children}) => {
-    const style = {
-        backgroundColor: color
-    }
+
+// eslint-disable-next-line react/prop-types
+const GameCircle = ({id, onCircleClicked}) => {
+
+    // const onClick = (ev, id) => {
+    //     onCircleClicked(id)
+    // }
+
+    const isEvenClass = id % 2 === 0 ? 'even' : 'odd';
     return (
-        <div className='gameCircle' style={style} id={id} onClick={(ev) => onClick(ev, id)}>
-            {children}
+        <div className={`gameCircle ${isEvenClass}`} id={id} onClick={() => onCircleClicked(id)}>
         </div>
     );
 };
