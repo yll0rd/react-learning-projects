@@ -2,6 +2,7 @@
 import React, {useState}  from "react";
 import GameCircle from "./GameCircle.jsx";
 import '../Game.css'
+import Header from "./Header.jsx";
 
 const NO_PLAYER = 0;
 const PLAYER_1 = 1;
@@ -33,9 +34,12 @@ const GameBoard = () => {
     }
 
     return (
-        <div className="gameBoard">
-            {initBoard()}
-        </div>
+        <>
+            <Header player={currentPlayer}/>
+            <div className="gameBoard">
+                {initBoard()}
+            </div>
+        </>
     )
 }
 
