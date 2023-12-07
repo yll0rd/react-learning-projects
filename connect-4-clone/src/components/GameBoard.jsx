@@ -3,6 +3,7 @@ import React, {useState}  from "react";
 import GameCircle from "./GameCircle.jsx";
 import '../Game.css'
 import Header from "./Header.jsx";
+import Footer from "./Footer.jsx";
 
 const NO_PLAYER = 0;
 const PLAYER_1 = 1;
@@ -33,12 +34,17 @@ const GameBoard = () => {
         return <GameCircle key={id} id={id} className={`player-${gameBoard[id-1]}`} onCircleClicked={circleClicked}/>
     }
 
+    const footerClicked = () => {
+        setGameBoard(Array(16).fill(NO_PLAYER))
+        setCurrentPlayer(PLAYER_1)
+    };
     return (
         <>
             <Header player={currentPlayer}/>
             <div className="gameBoard">
                 {initBoard()}
             </div>
+            <Footer onClick={footerClicked}/>
         </>
     )
 }
