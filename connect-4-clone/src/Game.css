@@ -25,8 +25,9 @@ body {
     font-size: 30px;
     font-family: 'Product Sans', 'sans-serif';
     font-weight: bold;
-    width: 200px;
-    margin: 0;
+    width: 250px;
+    /*margin: 0;*/
+    /*margin-left: 35px;*/
     position: absolute;
     top: 50%;
     left: 50%;
@@ -93,9 +94,9 @@ body {
 }
 
 .player-1 {
-    background-color: rgb(219, 255, 252);
+    background-color: rgb(175, 253, 247);
 }
 
 .player-2 {
-    background-color: rgb(255, 208, 208);
+    background-color: rgb(255, 149, 149);
 }

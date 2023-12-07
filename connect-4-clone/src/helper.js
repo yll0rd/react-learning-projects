@@ -1,5 +1,5 @@
 
-const isWinner = (gameBoard,  index, currentPlayer) => {
+export const isWinner = (gameBoard,  index, currentPlayer) => {
     let board = [...gameBoard];
     board[index] = currentPlayer;
     const winLines = [
@@ -25,6 +25,17 @@ const isWinner = (gameBoard,  index, currentPlayer) => {
             }
     }
     return false;
+}
+
+
+export const isDraw = (gameBoard, index, currentPlayer) => {
+    let board = [...gameBoard];
+    board[index] = currentPlayer;
+
+    for (let i = 0; i < board.length; i++) {
+        if (board[i] === 0) return false
+    }
+    return true;
 }
 
 export default isWinner;
