@@ -4,15 +4,15 @@ import GameCircle from "./GameCircle.jsx";
 import '../Game.css'
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
+import isWinner from "../helper.js";
+import {GAME_STATE_PLAYING, GAME_STATE_WIN, NO_PLAYER, NUMBER_OF_CIRCLES, PLAYER_1, PLAYER_2} from "../Constants.js";
 
-const NO_PLAYER = 0;
-const PLAYER_1 = 1;
-const PLAYER_2 = 2;
-const NUMBER_OF_CIRCLES = 16;
 
 const GameBoard = () => {
     const [gameBoard, setGameBoard] = useState(Array(16).fill(NO_PLAYER));
-    const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1)
+    const [currentPlayer, setCurrentPlayer] = useState(PLAYER_1);
+    const [gameState, setGameState] = useState(GAME_STATE_PLAYING);
+    const [winPlayer, setWinPlayer] = useState(NO_PLAYER)
 
     const initBoard = () => {
         let circles = [];
@@ -23,11 +23,16 @@ const GameBoard = () => {
     }
 
     const circleClicked = (id) => {
+        console.log(isWinner(gameBoard, id-1, currentPlayer))
+        if (isWinner(gameBoard, id-1, currentPlayer)) {
+            setGameState(GAME_STATE_WIN);
+            setWinPlayer(currentPlayer);
+        }
         setGameBoard(prevState => {
             prevState[id-1] = currentPlayer
             return prevState
        });
-        setCurrentPlayer(currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1);
+       setCurrentPlayer(currentPlayer === PLAYER_1 ? PLAYER_2 : PLAYER_1);
     }
 
     const renderCircle = (id) => {
@@ -35,12 +40,12 @@ const GameBoard = () => {
     }
 
     const footerClicked = () => {
-        setGameBoard(Array(16).fill(NO_PLAYER))
-        setCurrentPlayer(PLAYER_1)
+        setGameBoard(Array(16).fill(NO_PLAYER));
+        setCurrentPlayer(PLAYER_1);
     };
     return (
         <>
-            <Header player={currentPlayer}/>
+            <Header gameState={gameState} currentPlayer={currentPlayer} winPlayer={winPlayer} />
             <div className="gameBoard">
                 {initBoard()}
             </div>
