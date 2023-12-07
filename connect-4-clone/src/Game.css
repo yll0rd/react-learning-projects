@@ -16,17 +16,19 @@
     width: 100px;
     height: 100px;
     margin: 10px;
-    border: 1px solid black;
 }
 
 .player-0 {
     background-color: white;
+    border: 1px solid black;
 }
 
 .player-1 {
     background-color: red;
+    border: None;
 }
 
 .player-2 {
     background-color: blue;
+    border: None;
 }

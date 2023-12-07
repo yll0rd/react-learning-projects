@@ -21,7 +21,7 @@ const GameBoard = () => {
     }
 
     const circleClicked = (id) => {
-        setGameBoard((prevState) => {
+        setGameBoard(prevState => {
             prevState[id-1] = currentPlayer
             return prevState
        });
