@@ -12,8 +12,8 @@ const Header = ({gameState, currentPlayer, winPlayer}) => {
             case GAME_STATE_WIN:
                 return (<>Player <span className='header-text-number'>{winPlayer}</span> WINS</>)
             case GAME_STATE_DRAW:
-                style.marginLeft = '15px'
-                return (<>There is a DRAW</>)
+                style.marginLeft = '10px'
+                return (<>Game is a DRAW</>)
         }
     }
     return (
