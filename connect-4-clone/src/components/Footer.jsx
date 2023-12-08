@@ -2,10 +2,11 @@
 import React from 'react';
 
 // eslint-disable-next-line react/prop-types
-const Footer = ({onClick}) => {
+const Footer = ({newGameClickEvent, suggestClickEvent}) => {
     return (
-        <div className='panel footer' onClick={onClick}>
-            <button>New Game</button>
+        <div className='panel footer'>
+            <button onClick={newGameClickEvent}>New Game</button>
+            <button onClick={suggestClickEvent}>Suggest</button>
         </div>
     );
 };

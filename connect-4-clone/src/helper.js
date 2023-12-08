@@ -38,4 +38,16 @@ export const isDraw = (gameBoard, index, currentPlayer) => {
     return true;
 }
 
+
+export const getComputerMove = (gameBoard) => {
+    let board = [...gameBoard];
+    let validMoves = [];
+    for (let i = 1; i <= board.length; i++) {
+        if (board[i-1] === 0) validMoves.push(i);
+    }
+    let rndMove = Math.floor(Math.random() * validMoves.length);
+    console.log('Index: ', validMoves[rndMove] - 1);
+    return validMoves[rndMove];
+}
+
 export default isWinner;
