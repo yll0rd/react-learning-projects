@@ -105,9 +105,10 @@ export const getComputerMove = (gameBoard) => {
         }
     ]
     let position = getPosition(board, moveChecks);
-    if (position > -1) return position + 1;
-
-    return getRandomComputerMove(board)
+    // if (position > -1) return position + 1;
+    //
+    // return getRandomComputerMove(board)
+    return position > -1 ? position + 1 : getRandomComputerMove(board)
 }
 
 export default isWinner;
