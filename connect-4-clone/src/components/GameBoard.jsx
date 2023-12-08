@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useState}  from "react";
+import React, {useEffect, useState}  from "react";
 import GameCircle from "./GameCircle.jsx";
 import '../Game.css'
 import Header from "./Header.jsx";
@@ -22,6 +22,15 @@ const GameBoard = () => {
     const [gameState, setGameState] = useState(GAME_STATE_PLAYING);
     const [winPlayer, setWinPlayer] = useState(NO_PLAYER)
 
+    useEffect(() => {
+        initGame();
+    }, [])
+
+    const initGame = () => {
+        setGameBoard(Array(16).fill(NO_PLAYER));
+        setCurrentPlayer(PLAYER_1);
+    }
+    ;
     const initBoard = () => {
         let circles = [];
         for (let i = 1; i <= NUMBER_OF_CIRCLES; i++) {
@@ -39,6 +48,7 @@ const GameBoard = () => {
         }
         else if (isDraw(gameBoard, id-1, currentPlayer)) {
             setGameState(GAME_STATE_DRAW);
+            setWinPlayer(NO_PLAYER);
         }
 
         setGameBoard(prevState => {
@@ -53,10 +63,7 @@ const GameBoard = () => {
     }
 
     const footerClicked = () => {
-        setGameBoard(Array(16).fill(NO_PLAYER));
-        setCurrentPlayer(PLAYER_1);
-        setGameState(GAME_STATE_PLAYING);
-        setWinPlayer(NO_PLAYER);
+        initGame()
     };
     return (
         <>
