@@ -50,9 +50,10 @@ body {
 }
 
 .footer button {
-    margin-left: 5px;
-    margin-top: 15px;
-    width: 140px;
+    position: relative;
+    left: 50%;
+    top: 20%;
+    width: 150px;
     height: 50px;
     background-color: lightblue;
     font-size: 20px;
