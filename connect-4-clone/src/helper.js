@@ -46,7 +46,6 @@ const getPosition = (gameBoard, moveChecks) => {
                 gameBoard[i + moveChecks[check].indexes[1]].toString() +
                 gameBoard[i + moveChecks[check].indexes[2]].toString() +
                 gameBoard[i + moveChecks[check].indexes[3]].toString();
-            console.log(series)
             switch (series) {
                 case "1110":
                 case "2220":
@@ -72,7 +71,6 @@ const getRandomComputerMove = (board) => {
         if (board[i-1] === 0) validMoves.push(i);
     }
     let rndMove = Math.floor(Math.random() * validMoves.length);
-    console.log('Index: ', validMoves[rndMove] - 1);
     return validMoves[rndMove];
 }
 
