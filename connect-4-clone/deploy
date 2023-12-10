@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Define variables
+BUILD_DIR="./dist" # Path to the build directory of your React app
+SURGE_DOMAIN="billowy-stop.surge.sh" # Surge domain for deployment
+
+# Step 1: Build the React app
+echo "Building React app..."
+npm run build
+
+# Step 2: Deploy using Surge
+echo "Deploying to Surge..."
+surge ${BUILD_DIR} ${SURGE_DOMAIN}
+
+echo "Deployment complete!"
+
