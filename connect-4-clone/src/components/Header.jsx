@@ -17,9 +17,12 @@ const Header = ({gameState, currentPlayer, winPlayer}) => {
         }
     }
     return (
-        <div className='panel header'>
-            <div className='header-text' style={style}>{ renderLabel() }</div>
-        </div>
+        <>
+            <header>A connect-4 game</header>
+            <div className='panel header'>
+                <div className='header-text' style={style}>{ renderLabel() }</div>
+            </div>
+        </>
     );
 };
 
