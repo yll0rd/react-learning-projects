@@ -69,6 +69,15 @@ body {
     transition: background-color 0.3s;
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    width: 100vw;
+    font-size: 23px;
+    font-weight: bold;
+}
+
 .gameBoard {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
