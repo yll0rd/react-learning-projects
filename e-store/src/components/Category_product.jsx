@@ -28,9 +28,8 @@ const Category_Product = ({title, image, specs, features, price, stock}) => {
                     <h3>Features</h3>
                     <ul>
                         {
-                            features.map(f => {
-                                // eslint-disable-next-line react/jsx-key
-                                return <li>{f}</li>
+                            features.map((f, index) => {
+                                return <li key={`feature-${index}`} >{f}</li>
                             })
                         }
                     </ul>
