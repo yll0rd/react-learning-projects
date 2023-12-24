@@ -4,7 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Category from "./components/Category.jsx";
 import {getCategories, getProducts} from "./fetcher.js";
-import Category_Product from "./components/Category_product.jsx";
+import CategoryProduct from "./components/CategoryProduct.jsx";
 
 function App() {
     const [categories, setCategories] = useState({errorMessage: '', data: []})
@@ -33,7 +33,7 @@ function App() {
 
     const renderProducts = () => {
         return products.data.map(p => (
-            <Category_Product {...p} key={p.id} />
+            <CategoryProduct {...p} key={p.id} />
         ))
     }
 

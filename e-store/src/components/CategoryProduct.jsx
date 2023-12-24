@@ -1,9 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import {Link, useNavigate} from "react-router-dom";
+import styled from 'styled-components';
 
+
+const ProductTitle = styled
 // eslint-disable-next-line react/prop-types
-const Category_Product = ({id, title, image, specs, features, price, stock}) => {
+const CategoryProduct = ({id, title, image, specs, features, price, stock}) => {
     const navigate = useNavigate()
     return (
         <article>
@@ -58,4 +61,4 @@ const Category_Product = ({id, title, image, specs, features, price, stock}) => 
     );
 };
 
-export default Category_Product;
+export default CategoryProduct;
