@@ -54,7 +54,7 @@ const ProductDetails = () => {
                 </ProductInfo>
                 }
             </aside>
-            <aside className='category-product-finance'>
+            <aside>
                 <ProductInfoFinancePrice>
                     &pound;{product.data.price}
                 </ProductInfoFinancePrice>
