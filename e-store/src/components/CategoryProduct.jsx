@@ -13,7 +13,7 @@ const CategoryProduct = ({id, title, image, specs, features, price, stock}) => {
             </ProductTitle>
             <figure>
                 <ProductImageContainer>
-                    <ProductImageContainerImage src={`./assets/${image}`} alt={title} />
+                    <ProductImageContainerImage src={`../assets/${image}`} alt={title} />
                 </ProductImageContainer>
             </figure>
             <aside>

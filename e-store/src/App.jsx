@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Category from "./components/Category.jsx";
+// import Category from "./components/Category.jsx";
 import {getCategories, getProducts} from "./fetcher.js";
 import CategoryProduct from "./components/CategoryProduct.jsx";
+import { Link } from 'react-router-dom';
 
 function App() {
     const [categories, setCategories] = useState({errorMessage: '', data: []})
@@ -26,16 +27,12 @@ function App() {
     }
 
     const renderCategories = () => {
-        return categories.data.map(c => (
-            <Category id={c.id} title={c.title} key={c.id} onClick={() => handleCategoryClick(c.id)}/>
-        ))
+        return categories.data.map(c => {
+            return <li key={c.id}><Link to={`/categories/${c.id}`}>{c.title}</Link></li>
+            // return <Category id={c.id} title={c.title} key={c.id} onClick={() => handleCategoryClick(c.id)}/>
+        })
     }
 
-    const renderProducts = () => {
-        return products.data.map(p => (
-            <CategoryProduct {...p} key={p.id} />
-        ))
-    }
 
   return (
       <>
@@ -43,14 +40,14 @@ function App() {
       <section>
           <nav>
               { categories.errorMessage && <div>Error: {categories.errorMessage}</div>}
-              { categories.data && renderCategories() }
+              <ul>
+                { categories.data && renderCategories() }
+              </ul>
           </nav>
 
-      <article>
-          { products.errorMessage && <div>Error: {products.errorMessage}</div>}
-            <h1>Products</h1>
-          { products && renderProducts() }
-      </article>
+      <main>
+          
+      </main>
       </section>
 
       <footer>Footer</footer>
