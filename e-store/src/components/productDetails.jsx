@@ -1,10 +1,12 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../fetcher';
 import styled from 'styled-components';
+import { CartContext } from '../contexts/cartContext';
 
 const ProductDetails = () => {
+    const { addProduct } = useContext(CartContext)
     const [product, setProduct] = useState({errorMessage: '', data: {}})
     const {productId} = useParams();
 
@@ -65,7 +67,9 @@ const ProductDetails = () => {
                 </ProductInfoStock>
 
                 <ProductInfoAction>
-                    <ProductInfoActionButton>Add to Basket</ProductInfoActionButton>
+                    <ProductInfoActionButton onClick={() => addProduct({id: productId, title: product.data.title, price: product.data.price})}>
+                        Add to Basket
+                    </ProductInfoActionButton>
                 </ProductInfoAction>
             </aside>
 
