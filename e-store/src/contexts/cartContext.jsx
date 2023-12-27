@@ -16,8 +16,44 @@ const CartContextProvider = ({children}) => {
     });
   }
 
+  const removeProduct = payload => {
+    dispatch({
+      type: "REMOVE",
+      payload
+    });
+  }
+
+  const increaseQuantity = payload => {
+    dispatch({
+      type: "INCQTY",
+      payload
+    });
+  }
+
+  const decreaseQuantity = payload => {
+    dispatch({
+      type: "DECQTY",
+      payload
+    });
+  }
+
+  const clearBasket = () => {
+    dispatch({
+      type: "CLEAR"
+    });
+  }
+
+  const getItems = () => {
+    return state.cartItems;
+  }
+
   const contextValues = {
-    addProduct: addProduct,
+    addProduct,
+    removeProduct,
+    increaseQuantity,
+    decreaseQuantity,
+    clearBasket,
+    getItems,
     ...initialState,
   }
 
