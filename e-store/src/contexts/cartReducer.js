@@ -21,7 +21,8 @@ export const CartReducer = (state, action) => {
             break;
         }
         case "DECQTY": {
-            if (index > -1)
+            let qty = resultState.cartItems[index].quantity
+            if (index > -1 && qty > 1)
                 resultState.cartItems[index].quantity -= 1;
             break;
         }
