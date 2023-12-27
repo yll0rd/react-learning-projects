@@ -11,6 +11,7 @@ import Cart from './components/cart.jsx';
 import Checkout from './components/checkout.jsx';
 import Home from './components/Home.jsx';
 import OrderConfirmation from './components/orderConfirmation.jsx';
+import SearchResult from './components/searchResult.jsx';
 
 function App() {
     const [categories, setCategories] = useState({errorMessage: '', data: []})
@@ -30,6 +31,7 @@ function App() {
                 <Route path='/' element={<Layout categories={categories} />}>
                     <Route index element={<Home />}/>
                     <Route path='/products/:productId' element={<ProductDetails />}/>
+                    <Route path='/search' element={<SearchResult />}/>
                     <Route path='/checkout' element={<Checkout />}/>
                     <Route path='/orderconfirmation' element={<OrderConfirmation />}/>
                     <Route 
