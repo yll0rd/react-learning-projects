@@ -41,6 +41,7 @@ const CartContextProvider = ({children}) => {
     dispatch({
       type: "CLEAR"
     });
+    return state.cartItems;
   }
 
   const getCartItems = () => {
