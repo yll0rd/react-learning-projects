@@ -43,7 +43,7 @@ const CartContextProvider = ({children}) => {
     });
   }
 
-  const getItems = () => {
+  const getCartItems = () => {
     return state.cartItems;
   }
 
@@ -53,7 +53,7 @@ const CartContextProvider = ({children}) => {
     increaseQuantity,
     decreaseQuantity,
     clearBasket,
-    getItems,
+    getCartItems,
     ...initialState,
   }
 
