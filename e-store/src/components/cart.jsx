@@ -1,12 +1,26 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
 import { CartContext } from '../contexts/cartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { DownIcon, TrashIcon, UpIcon } from "./icon.jsx"
 
 const cart = () => {
+    const [dummyState, setDummyState] = useState(false);
+    const forceUpdate = () => {
+        setDummyState(!dummyState);
+    };
+
+    const navigate = useNavigate();
     const context = useContext(CartContext);
+    const {
+        getCartItems,
+        clearBasket,
+        removeProduct,
+        increaseQuantity, 
+        decreaseQuantity
+    } = context;
     const renderCart = () => {
-        const cartItems = context.getCartItems();
+        const cartItems = getCartItems();
         if (cartItems.length === 0) {
             return <div>The basket is currently empty</div>
         }
@@ -17,7 +31,21 @@ const cart = () => {
                 <div>
                     <Link to={`/products/${item.id}`}>{item.title}</Link>
                 </div>
-                <BasketQty> {item.quantity} </BasketQty>
+                <BasketQty> 
+                    {item.quantity}
+                    <UpIcon width={20} onClick={() => {
+                        increaseQuantity({id: item.id})
+                        // forceUpdate()
+                        }}/>
+                    <DownIcon width={20} onClick={() => {
+                        decreaseQuantity({id: item.id})
+                        // forceUpdate()
+                        }}/>
+                    <TrashIcon width={20} onClick={() => {
+                        removeProduct({id: item.id})
+                        // forceUpdate()
+                        }}/> 
+                </BasketQty>
                 <BasketPrice> &pound;{item.price} </BasketPrice>
                 </React.Fragment>
                 )
@@ -28,7 +56,7 @@ const cart = () => {
   return (
     <BasketContainer>
         <BasketTitle>Shopping Basket</BasketTitle>
-        <BasketButton>Checkout</BasketButton>
+        <BasketButton onClick={() => navigate('/checkout')}>Checkout</BasketButton>
         <BasketTable>
             <BasketHeader>
                 <h4>Item</h4>
@@ -43,7 +71,10 @@ const cart = () => {
 
             <BasketHeaderLine />
 
-            <BasketButton>Clear</BasketButton>
+            <BasketButton onClick={() => {
+                clearBasket()
+                // forceUpdate()
+                }}>Clear</BasketButton>
             <BasketTotal>Total: &pound;0</BasketTotal>
 
         </BasketTable>
