@@ -1,3 +1,7 @@
+const storage = (cartItems) => {
+    localStorage.setItem('cart', JSON.stringify(cartItems.length > 0 ? cartItems : []));
+}
+
 export const CartReducer = (state, action) => {
     // eslint-disable-next-line no-debugger
     // debugger;
@@ -32,5 +36,6 @@ export const CartReducer = (state, action) => {
         }
         default: {}
     }
+    storage(resultState.cartItems);
     return resultState;
 }
