@@ -1,11 +1,15 @@
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useContext } from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import styled from 'styled-components';
+import { CartContext } from '../contexts/cartContext';
 
 // eslint-disable-next-line react/prop-types
 const CategoryProduct = ({id, title, image, specs, features, price, stock}) => {
     const navigate = useNavigate()
+    const context = useContext(CartContext);
+    const addProduct = context.addProduct
+
     return (
         <ProductInfoArticle>
             <ProductTitle>
@@ -52,7 +56,7 @@ const CategoryProduct = ({id, title, image, specs, features, price, stock}) => {
 
                 <ProductInfoAction>
                     <ProductInfoActionButton onClick={() => navigate((`/products/${id}`))}>View product</ProductInfoActionButton>
-                    <ProductInfoActionButton>Add to Basket</ProductInfoActionButton>
+                    <ProductInfoActionButton onClick={() => addProduct({id, title, price})}>Add to Basket</ProductInfoActionButton>
                 </ProductInfoAction>
             </aside>
         </ProductInfoArticle>
