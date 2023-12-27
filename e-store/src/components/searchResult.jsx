@@ -20,15 +20,19 @@ const SearchResult = () => {
     }, [query])
 
     const renderProducts = () => {
-        return products.data.map(p => (
-            <CategoryProduct {...p} key={p.id} />
-        ))
+        if (products.data.length > 0)
+            return products.data.map(p => (
+                <CategoryProduct {...p} key={p.id} />
+            ))
+        else
+            return <div>No results Found</div>
+
     }
 
   return (
       <div>
           { products.errorMessage && <div>Error: {products.errorMessage}</div>}
-          <h1>Products</h1>
+        
           { products && renderProducts() }
       </div>
   )
