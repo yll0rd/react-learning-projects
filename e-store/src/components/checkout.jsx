@@ -1,17 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Checkout = () => {
     const navigate = useNavigate();
-    let disabled = false
-    const confirmOrder = (ev) => {
+    const [form, setForm] = useState({
+        name: '',
+        email: '',
+        shippingAddress1: '', 
+        touched: {  
+            name: false,
+            email: false,
+            shippingAddress1: false
+        }
+    });
+    
+    const errors = {
+        name: form.name.length === 0,
+        email: form.email.length === 0,
+        shippingAddress1: form.shippingAddress1.length === 0,
+    };
+    const disabled = Object.keys(errors).some((x) => errors[x]);
+
+    const handleSubmit = ev => {
+        if (disabled) {
+            ev.preventDefault();
+            return;
+        }
         navigate('/orderconfirmation')
     }
+
+    const handleChange = ev => {
+        const {name, value} = ev.target
+        setForm(prevState => {
+            return {
+                ...prevState,
+                [name]: value
+            }
+        })
+    }
+
+    const showError = (field) => (errors[field] ? form.touched[field] : false);
+
+    const handleBlur = (ev) => {
+        const { name } = ev.target;
+        setForm((prevState) => {
+            return {
+                ...prevState,
+                touched: { ...form.touched, [name]: true },
+            };
+        });
+    };
+
     return (
-        <form
-            // onSubmit={handleSubmit}
-            >
+        <form onSubmit={handleSubmit} >
             <CheckoutContainer>
                 {/* Row 1 */}
                 <CheckoutTitle>Shopping Checkout</CheckoutTitle>
@@ -26,21 +68,21 @@ const Checkout = () => {
 
                 {/* Row 6 */}
                 <CheckoutTable>
-                    <CheckoutFormLabel>Name</CheckoutFormLabel>
+                    <CheckoutFormLabel>Name *</CheckoutFormLabel>
                     <CheckoutInput
                         type="text"
                         name="name"
-                        // invalid={showError("name")}
-                        // onChange={handleChange}
-                        // onBlur={handleBlur}
+                        invalid={showError("name")}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                         placeholder="Enter name"
                     />
-                    <CheckoutFormLabel>Email</CheckoutFormLabel>
+                    <CheckoutFormLabel>Email *</CheckoutFormLabel>
                     <CheckoutInput
                         type="text"
                         name="email"
-                        // invalid={showError("email")}
-                        // onChange={handleChange}
+                        invalid={showError("email")}
+                        onChange={handleChange}
                         placeholder="Enter email"
                     />
                 </CheckoutTable>
@@ -69,13 +111,14 @@ const Checkout = () => {
                         <input type="text" name="billingCity" />
                     </CheckoutAddress>
 
-                    <CheckoutFormLabel>Shipping Address</CheckoutFormLabel>
+                    <CheckoutFormLabel>Shipping Address *</CheckoutFormLabel>
 
                     <CheckoutAddress>
                         <CheckoutInput
                             type="text"
                             name="shippingAddress1"
-                            // invalid={showError("shippingAddress1")}
+                            onChange={handleChange}
+                            invalid={showError("shippingAddress1")}
                             placeholder="Enter first address line"
                         />
                         <input type="text" name="shippingAddress2" />
@@ -87,7 +130,7 @@ const Checkout = () => {
                     Cancel
                 </CancelButton>
 
-                <CheckoutButton disabled={disabled} onClick={confirmOrder}>
+                <CheckoutButton disabled={disabled} onClick={handleSubmit}>
                     Confirm Order
                 </CheckoutButton>
             </CheckoutContainer>
