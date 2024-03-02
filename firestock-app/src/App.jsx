@@ -1,8 +1,7 @@
-import { useState, useEffect, useReducer } from 'react'
+import { useEffect, useReducer, useMemo} from 'react'
 import './App.css'
-import Navbar from "./components/NavBar.jsx";
 import Card from "./components/Card.jsx";
-import UploadForm from "./components/UploadForm.jsx";
+import Layout from "./components/Layout.jsx";
 
 
 const photos = [
@@ -16,7 +15,7 @@ const photos = [
 
 const initialState = {
     items: photos,
-    length: photos.length,
+    count: photos.length,
     inputs: {title: '', file: '', path: '', fileValue: ''},
     isCollapsed: true
 }
@@ -24,7 +23,11 @@ const initialState = {
 const reducer = (state, action) => {
     switch (action.type) {
         case 'setItem':
-            return {...state, items: [state.inputs.path, ...state.items]}
+            return {
+                ...state,
+                items: [state.inputs.path, ...state.items],
+                count: state.count + 1
+            }
         case 'clearInputs':
             return {...state, inputs: initialState.inputs, isCollapsed: true}
         case 'setInputs':
@@ -38,16 +41,15 @@ function App() {
     const [state, dispatch] = useReducer(reducer, initialState)
     const { items, inputs, isCollapsed } = state
     const toggle = (bool) => dispatch({ type: 'toggleIsCollapsed', payload: {bool: bool}})
-    const [countText, setCountText] = useState('')
 
 
     useEffect(() => {
         console.log(state)
     }, [state])
 
-    useEffect(() => {
-        setCountText(`You have ${items.length} image${items.length > 1 ? 's' : ''}`)
-    }, [items.length]);
+    const countText = useMemo(() => {
+        return `You have ${state.count} image${state.count > 1 ? 's' : ''}`
+    }, [state.count])
 
     const handleUploadFormOnChange = (event) => {
         if (event.target.name === 'title')
@@ -66,17 +68,20 @@ function App() {
 
   return (
     <>
-        <Navbar />
-        <div className="container text-center mt-5">
-            <button className='btn btn-success float-end' onClick={() => toggle(!isCollapsed)}>{isCollapsed ? '+ Add' : 'Close' }</button>
-            <div className='clearfix mb-4'></div>
-            { !isCollapsed && <UploadForm handleUploadFormOnChange={handleUploadFormOnChange} input={inputs} handleUploadFormSubmit={handleUploadFormSubmit} /> }
-            {countText}
+        <Layout
+            isCollapsed={isCollapsed}
+            onSubmit={handleUploadFormSubmit}
+            onChange={handleUploadFormOnChange}
+            countText={countText}
+            toggle={toggle}
+            inputs={inputs}
+        >
             <h1>Gallery</h1>
             <div className='row'>
                 {items.map((photo, index) => <Card photoSrc={photo} key={index}/> )}
             </div>
-        </div>
+        </Layout>
+
     </>
   )
 }
