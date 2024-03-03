@@ -1,4 +1,8 @@
 // eslint-disable-next-line react/prop-types
+import {useContext} from "react";
+import {AppContext} from "../contexts/appContext.jsx";
+
+// eslint-disable-next-line react/prop-types
 const Preview = ({ path }) => {
     return (
             path && <div
@@ -13,11 +17,29 @@ const Preview = ({ path }) => {
     );
 };
 
-// eslint-disable-next-line react/prop-types
-const UploadForm = ( {input, handleUploadFormOnChange, handleUploadFormSubmit} ) => {
+
+const UploadForm = () => {
+    const { state, dispatch } = useContext(AppContext)
+    const { inputs } = state
+
+    const handleUploadFormOnChange = (event) => {
+        if (event.target.name === 'title')
+            dispatch({type: 'setInputs', payload : { title: event.target.value }})
+        else if (event.target.name === 'file') {
+            const file = event.target.files[0]
+            dispatch({type: 'setInputs', payload : { file, path: URL.createObjectURL(file), fileValue: event.target.value }})
+        }
+    }
+
+    const handleUploadFormSubmit = (event) => {
+        event.preventDefault()
+        dispatch({ type: 'setItem' })
+        dispatch({ type: 'clearInputs' })
+    }
+
     const checkDisable = () => {
         // eslint-disable-next-line react/prop-types
-        let { title, fileValue } = input
+        let { title, fileValue } = inputs
         return !(title && fileValue)
     }
 
@@ -25,7 +47,7 @@ const UploadForm = ( {input, handleUploadFormOnChange, handleUploadFormSubmit} )
         <>
             <p className="display-6 text-center mb-3">Upload Stock Image</p>
             <div className="mb-5 d-flex align-items-center justify-content-center">
-                <Preview path={input.path}/>
+                <Preview path={inputs.path}/>
                 <form className="mb-2" style={{ textAlign: "left" }}>
                     <div className="mb-3">
                         <input
@@ -35,7 +57,7 @@ const UploadForm = ( {input, handleUploadFormOnChange, handleUploadFormSubmit} )
                             placeholder="title"
                             aria-describedby="text"
                             onChange={handleUploadFormOnChange}
-                            value={input.title}
+                            value={inputs.title}
                             required={true}
                         />
                     </div>
@@ -45,7 +67,7 @@ const UploadForm = ( {input, handleUploadFormOnChange, handleUploadFormSubmit} )
                             className="form-control"
                             name="file"
                             onChange={handleUploadFormOnChange}
-                            value={input.fileValue}
+                            value={inputs.fileValue}
                             required/>
                     </div>
                     <button
