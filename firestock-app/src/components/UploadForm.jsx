@@ -1,6 +1,9 @@
 // eslint-disable-next-line react/prop-types
 import {useContext} from "react";
-import {AppContext} from "../contexts/appContext.jsx";
+import { AppContext } from "../contexts/appContext.jsx";
+import Firestore from "../handlers/firestore.js";
+
+const { writeDoc } = Firestore;
 
 // eslint-disable-next-line react/prop-types
 const Preview = ({ path }) => {
@@ -33,6 +36,7 @@ const UploadForm = () => {
 
     const handleUploadFormSubmit = (event) => {
         event.preventDefault()
+        writeDoc(inputs, "stocks").then(() => console.log("Successful"))
         dispatch({ type: 'setItem' })
         dispatch({ type: 'clearInputs' })
     }

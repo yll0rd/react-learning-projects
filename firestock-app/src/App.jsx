@@ -3,6 +3,9 @@ import './App.css'
 import Card from "./components/Card.jsx";
 import Layout from "./components/Layout.jsx";
 import {AppContext} from "./contexts/appContext.jsx";
+import Firestore from "./handlers/firestore.js";
+
+const { readDoc } = Firestore
 
 function App() {
     const { state } = useContext(AppContext)
@@ -11,6 +14,10 @@ function App() {
     useEffect(() => {
         console.log(state)
     }, [state])
+
+    useEffect(() => {
+        readDoc("stocks").then(console.log)
+    }, []);
 
   return (
     <>
