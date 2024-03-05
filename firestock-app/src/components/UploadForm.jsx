@@ -2,8 +2,10 @@
 import {useContext} from "react";
 import { AppContext } from "../contexts/appContext.jsx";
 import Firestore from "../handlers/firestore.js";
+import Storage from "../handlers/storage.js";
 
 const { writeDoc } = Firestore;
+const { uploadFile, downloadFile } = Storage
 
 // eslint-disable-next-line react/prop-types
 const Preview = ({ path }) => {
@@ -36,9 +38,15 @@ const UploadForm = () => {
 
     const handleUploadFormSubmit = (event) => {
         event.preventDefault()
-        writeDoc(inputs, "stocks").then(() => console.log("Successful"))
-        dispatch({ type: 'setItem' })
-        dispatch({ type: 'clearInputs' })
+        uploadFile(state.inputs).then(downloadFile)
+            .then(media => {
+                writeDoc({ path: media.path, title: media.title }, "stocks")
+                    .then((response) => {
+                        console.log(response)
+                        dispatch({ type: 'setItem', payload: { item: media } })
+                        dispatch({ type: 'clearInputs' })
+                    })
+        })
     }
 
     const checkDisable = () => {
@@ -80,7 +88,7 @@ const UploadForm = () => {
                         onClick={handleUploadFormSubmit}
                         disabled={checkDisable()}
                     >
-                        Save changes
+                        Save and Upload
                     </button>
                 </form>
             </div>

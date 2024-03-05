@@ -3,20 +3,14 @@ import './App.css'
 import Card from "./components/Card.jsx";
 import Layout from "./components/Layout.jsx";
 import {AppContext} from "./contexts/appContext.jsx";
-import Firestore from "./handlers/firestore.js";
 
-const { readDoc } = Firestore
 
 function App() {
-    const { state } = useContext(AppContext)
+    const { state, read } = useContext(AppContext)
     const { items } = state
 
     useEffect(() => {
-        console.log(state)
-    }, [state])
-
-    useEffect(() => {
-        readDoc("stocks").then(console.log)
+        read("stocks").then(console.log)
     }, []);
 
   return (
@@ -24,7 +18,7 @@ function App() {
         <Layout>
             <h1>Gallery</h1>
             <div className='row'>
-                {items.map((photo, index) => <Card photoSrc={photo} key={index}/> )}
+                {items.map((photo, index) => <Card photo={photo} key={index}/> )}
             </div>
         </Layout>
     </>

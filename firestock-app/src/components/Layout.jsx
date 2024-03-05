@@ -7,7 +7,7 @@ import {AppContext} from "../contexts/appContext.jsx";
 // eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
     const { state, dispatch } = useContext(AppContext)
-    const { isCollapsed } = state
+    const { count, isCollapsed } = state
 
     const toggle = (bool) => dispatch({ type: 'toggleIsCollapsed', payload: {bool: bool}})
 
@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
                 <button className='btn btn-success float-end' onClick={() => toggle(!isCollapsed)}>{isCollapsed ? '+ Add' : 'Close' }</button>
                 <div className='clearfix mb-4'></div>
                 { !isCollapsed && <UploadForm /> }
-                {countText}
+                {count > 0 && countText}
                 { children }
             </div>
         </div>
