@@ -41,9 +41,9 @@ const UploadForm = () => {
         uploadFile(state.inputs).then(downloadFile)
             .then(media => {
                 writeDoc({ path: media.path, title: media.title }, "stocks")
-                    .then((response) => {
-                        console.log(response)
-                        dispatch({ type: 'setItem', payload: { item: media } })
+                    .then((res) => {
+                        console.log(res)
+                        dispatch({ type: 'setItem', payload: { item: res } })
                         dispatch({ type: 'clearInputs' })
                     })
         })
