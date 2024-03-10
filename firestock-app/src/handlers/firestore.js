@@ -6,6 +6,7 @@ const Firestore = {
     readDoc: (collection_name) => {
         let docs = []
         const ref = collection(db, collection_name)
+        // eslint-disable-next-line no-async-promise-executor
         return new Promise(async resolve => {
             try {
                 const snapshots = await getDocs(ref)
@@ -22,6 +23,7 @@ const Firestore = {
 
     writeDoc: (...args) => {
         const [inputs, collection_name] = args
+        // eslint-disable-next-line no-async-promise-executor
         return new Promise(async resolve => {
             const randomIndex = Math.floor(Math.random() * 1000000000)
             try {
