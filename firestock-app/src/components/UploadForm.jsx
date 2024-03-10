@@ -25,7 +25,7 @@ const Preview = ({ path }) => {
 
 
 const UploadForm = () => {
-    const { state, dispatch } = useContext(AppContext)
+    const { state, dispatch, read } = useContext(AppContext)
     const { inputs } = state
     const { currentUser } = useAuthContext()
 
@@ -46,7 +46,8 @@ const UploadForm = () => {
                 writeDoc({ path: media.path, title: media.title, userName: username.toLowerCase() }, "stocks")
                     .then((res) => {
                         console.log(res)
-                        dispatch({ type: 'setItem', payload: { item: res } })
+                        // dispatch({ type: 'setItem', payload: { item: res } })
+                        read("stocks")
                         dispatch({ type: 'clearInputs' })
                     })
         })
