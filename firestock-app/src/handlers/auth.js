@@ -14,9 +14,17 @@ const FirebaseAuth = {
         })
     },
     signOut: () => {
-        signOut(auth)
-            .then(() => console.log("User logged out"))
-            .catch(console.error)
+        return new Promise(resolve => {
+            signOut(auth)
+                .then(() => {
+                    console.log("User logged out")
+                    resolve()
+                })
+                .catch(console.error)
+        })
+    },
+    getCurrentUser: () => {
+        return new Promise(resolve => auth.onAuthStateChanged(resolve))
     }
 }
 
