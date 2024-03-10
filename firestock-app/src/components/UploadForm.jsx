@@ -1,8 +1,9 @@
 // eslint-disable-next-line react/prop-types
-import {useContext} from "react";
+import {useContext, useMemo} from "react";
 import { AppContext } from "../contexts/appContext.jsx";
 import Firestore from "../handlers/firestore.js";
 import Storage from "../handlers/storage.js";
+import {useAuthContext} from "../contexts/AuthContext.jsx";
 
 const { writeDoc } = Firestore;
 const { uploadFile, downloadFile } = Storage
@@ -26,6 +27,7 @@ const Preview = ({ path }) => {
 const UploadForm = () => {
     const { state, dispatch } = useContext(AppContext)
     const { inputs } = state
+    const { currentUser } = useAuthContext()
 
     const handleUploadFormOnChange = (event) => {
         if (event.target.name === 'title')
@@ -36,11 +38,12 @@ const UploadForm = () => {
         }
     }
 
+    const username = useMemo(() => currentUser?.displayName.split(" ").join(""), [currentUser]);
     const handleUploadFormSubmit = (event) => {
         event.preventDefault()
         uploadFile(state.inputs).then(downloadFile)
             .then(media => {
-                writeDoc({ path: media.path, title: media.title }, "stocks")
+                writeDoc({ path: media.path, title: media.title, userName: username.toLowerCase() }, "stocks")
                     .then((res) => {
                         console.log(res)
                         dispatch({ type: 'setItem', payload: { item: res } })

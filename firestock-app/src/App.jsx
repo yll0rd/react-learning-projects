@@ -3,14 +3,17 @@ import './App.css'
 import Card from "./components/Card.jsx";
 import Layout from "./components/Layout.jsx";
 import {AppContext} from "./contexts/appContext.jsx";
+import {useAuthContext} from "./contexts/AuthContext.jsx";
 
 
 function App() {
     const { state, read } = useContext(AppContext)
     const { items } = state
+    const { authenticate } = useAuthContext()
 
     useEffect(() => {
         read("stocks").then(console.log)
+        authenticate()
     }, []);
 
   return (

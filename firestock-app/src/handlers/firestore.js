@@ -26,7 +26,7 @@ const Firestore = {
             const randomIndex = Math.floor(Math.random() * 1000000000)
             try {
                 const docRef = doc(db, collection_name, `${randomIndex}`);
-                const docData = { title: inputs.title, path: inputs.path , createdAt: serverTimestamp() }
+                const docData = { title: inputs.title, path: inputs.path, userName: inputs.userName , createdAt: serverTimestamp() }
                 await setDoc(docRef , docData);
                 resolve(docData)
             } catch(e) {

@@ -3,7 +3,7 @@ import {useMemo} from "react";
 
 function Card({photo}) {
     console.log(photo)
-    const { path, title, createdAt } = photo
+    const { path, title, createdAt, userName } = photo
     const timestamp = useMemo(() => {
         const date = `${new Date(createdAt.seconds * 1000)}`.split(" ")
         return `${date[1]} ${date[2]} ${date[3]}`
@@ -21,7 +21,7 @@ function Card({photo}) {
                 <h5 className="text-center mt-1">{title}</h5>
                 <div className="d-flex justify-content-between p-2">
                     <p>{timestamp}</p>
-                    <i>@username</i>
+                    <i>@{userName}</i>
                 </div>
             </div>
         </div>
