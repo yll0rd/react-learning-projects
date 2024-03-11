@@ -1,5 +1,6 @@
 import {useAuthContext} from "../contexts/AuthContext.jsx";
 import {useMemo} from "react";
+import {Link} from "react-router-dom";
 
 
 const LogIn = () => {
@@ -22,14 +23,20 @@ const LogOut = () => {
 
 
 function Navigation() {
+    const { currentUser } = useAuthContext()
     return(
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {/* remove all links except HOME */}
             <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link active" aria-current="page" to="/">
                     Home
-                </a>
+                </Link>
             </li>
+            {currentUser && <li className="nav-item">
+                <Link className="nav-link active" aria-current="page" to="/stocks">
+                    My Stocks Images
+                </Link>
+            </li>}
         </ul>
     )
 }

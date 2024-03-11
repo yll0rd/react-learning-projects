@@ -1,29 +1,35 @@
-import {useEffect, useContext} from 'react'
-import './App.css'
-import Card from "./components/Card.jsx";
+// eslint-disable-next-line no-unused-vars
+import React, {useEffect} from 'react'
+import './App.css';
 import Layout from "./components/Layout.jsx";
-import {AppContext} from "./contexts/appContext.jsx";
+import AppContextProvider from "./contexts/appContext.jsx";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {useAuthContext} from "./contexts/AuthContext.jsx";
+import Home from "./components/Home.jsx";
+import Stocks from "./components/Stocks.jsx";
 
 
 function App() {
-    const { state, read } = useContext(AppContext)
-    const { items } = state
     const { authenticate } = useAuthContext()
 
     useEffect(() => {
-        read("stocks").then(console.log)
-        authenticate()
+        authenticate();
     }, []);
+
 
   return (
     <>
-        <Layout>
-            <h1>Gallery</h1>
-            <div className='row'>
-                {items.map((photo, index) => <Card photo={photo} key={index}/> )}
-            </div>
-        </Layout>
+        <AppContextProvider>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<Layout />} >
+                        <Route index element={<Home />} />
+                        <Route path="/stocks" element={<Stocks/>}/>
+                    </Route>
+                </Routes>
+            </Router>
+        </AppContextProvider>
+        {/*<Layout />*/}
     </>
   )
 }
