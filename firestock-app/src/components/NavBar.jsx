@@ -1,6 +1,7 @@
 import {useAuthContext} from "../contexts/AuthContext.jsx";
-import {useMemo} from "react";
+import {useContext, useMemo, useState} from "react";
 import {Link, useLocation} from "react-router-dom";
+import {AppContext} from "../contexts/appContext.jsx";
 
 
 const LogIn = () => {
@@ -48,6 +49,17 @@ function Navigation() {
 }
 
 const SearchForm = () => {
+    const [text, search] = useState(null)
+    const { filterItems: filter } = useContext(AppContext)
+    const handleOnChange = e => {
+        search(e.target.value)
+        filter(e.target.value)
+    }
+    const handleOnSubmit = event => {
+        event.preventDefault()
+        filter(text)
+        console.log(`Searching ${text}`)
+    }
     return(
         <form className="d-flex">
             <input
@@ -55,8 +67,9 @@ const SearchForm = () => {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                onChange={handleOnChange}
             />
-            <button className="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-success" type="submit" onClick={handleOnSubmit}>
                 Search
             </button>
         </form>
