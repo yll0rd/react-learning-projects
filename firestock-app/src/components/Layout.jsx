@@ -1,21 +1,24 @@
 // eslint-disable-next-line no-unused-vars
-import React, {useContext, useMemo} from 'react';
+import React, {useContext, useEffect, useMemo} from 'react';
 import Navbar from "./NavBar.jsx";
 import UploadForm from "./UploadForm.jsx";
 import {AppContext} from "../contexts/appContext.jsx";
 import {useAuthContext} from "../contexts/AuthContext.jsx";
+import Card from "./Card.jsx";
+import {Outlet} from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const Layout = ({ children }) => {
-    const { state, dispatch } = useContext(AppContext)
-    const { count, isCollapsed } = state
-    const { currentUser } = useAuthContext()
+const Layout = () => {
+    const { state, dispatch, read } = useContext(AppContext)
+    const { isCollapsed } = state
+    const { currentUser, authenticate } = useAuthContext()
+
+    useEffect(() => {
+        read("stocks").then(console.log)
+        authenticate()
+    }, []);
 
     const toggle = (bool) => dispatch({ type: 'toggleIsCollapsed', payload: {bool: bool}})
-
-    const countText = useMemo(() => {
-        return `You have ${state.count} image${state.count > 1 ? 's' : ''}`
-    }, [state.count])
 
     return (
         <div>
@@ -27,8 +30,7 @@ const Layout = ({ children }) => {
                     </button>}
                 <div className='clearfix mb-4'></div>
                 { !isCollapsed && <UploadForm /> }
-                {count > 0 && countText}
-                { children }
+                <Outlet />
             </div>
         </div>
     );
