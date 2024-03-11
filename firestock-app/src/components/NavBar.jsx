@@ -1,6 +1,6 @@
 import {useAuthContext} from "../contexts/AuthContext.jsx";
 import {useMemo} from "react";
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 
 
 const LogIn = () => {
@@ -23,18 +23,24 @@ const LogOut = () => {
 
 
 function Navigation() {
+    const { pathname } = useLocation()
     const { currentUser } = useAuthContext()
     return(
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             {/* remove all links except HOME */}
             <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
+                <Link className={`nav-link ${pathname === '/' ? "active" : ""}`} aria-current="page" to="/">
                     Home
                 </Link>
             </li>
             {currentUser && <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/myimages">
+                <Link className={`nav-link ${pathname === '/myimages' ? "active" : ""}`} aria-current="page" to="/myimages">
                     My Stocks Images
+                </Link>
+            </li>}
+            {currentUser && <li className="nav-item">
+                <Link className={`nav-link ${pathname === '/profile' ? "active" : ""}`} aria-current="page" to="/profile">
+                    Profile
                 </Link>
             </li>}
         </ul>
@@ -75,7 +81,7 @@ const DropDown = () => {
         <li className="nav-item dropdown">
             <a
                 className="nav-link dropdown-toggle"
-                href="#"
+                href="/"
                 id="navbarDropdown"
                 role="button"
                 data-bs-toggle="dropdown"
@@ -105,7 +111,7 @@ function Navbar() {
     return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light mb-5">
             <div className="container-fluid">
-                <a className="navbar-brand" href="#">
+                <a className="navbar-brand" href="/">
                     ⚡ Firestock
                 </a>
                 <button
