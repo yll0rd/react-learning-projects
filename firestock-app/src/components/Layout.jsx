@@ -4,7 +4,6 @@ import Navbar from "./NavBar.jsx";
 import UploadForm from "./UploadForm.jsx";
 import {AppContext} from "../contexts/appContext.jsx";
 import {useAuthContext} from "../contexts/AuthContext.jsx";
-import Card from "./Card.jsx";
 import {Outlet} from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types

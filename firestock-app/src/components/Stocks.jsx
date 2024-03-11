@@ -3,18 +3,10 @@ import React, {useContext, useEffect, useMemo} from 'react';
 import List from "./List.jsx";
 import {useAuthContext} from "../contexts/AuthContext.jsx";
 import {AppContext} from "../contexts/appContext.jsx";
-import {useNavigate} from "react-router-dom";
 
 const Stocks = () => {
     const { state } = useContext(AppContext)
     const { currentUser } = useAuthContext()
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        if (!currentUser)
-            navigate('/')
-    }, [currentUser, navigate])
-
 
     // const items = []
     const items = useMemo(() => {

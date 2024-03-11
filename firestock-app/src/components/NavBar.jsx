@@ -33,7 +33,7 @@ function Navigation() {
                 </Link>
             </li>
             {currentUser && <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/stocks">
+                <Link className="nav-link active" aria-current="page" to="/myimages">
                     My Stocks Images
                 </Link>
             </li>}
@@ -59,7 +59,8 @@ const SearchForm = () => {
 
 const DropDown = () => {
     const { currentUser } = useAuthContext()
-    const username = useMemo(() => currentUser?.displayName || "Profile", [currentUser])
+    // const username = useMemo(() => currentUser?.displayName || "Profile", [currentUser])
+    const username = useMemo(() => currentUser?.displayName, [currentUser])
 
     const avatar = useMemo(() => {
         return currentUser ?
@@ -85,7 +86,7 @@ const DropDown = () => {
             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
                     <a className="dropdown-item text-center" href="#">
-                        {username}
+                        {username ? <Link to='/profile'>{username}</Link> : ''}
                     </a>
                     <li><hr className="dropdown divider"/></li>
                 </li>
