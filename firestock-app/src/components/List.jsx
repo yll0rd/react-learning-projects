@@ -9,7 +9,7 @@ const List = ({ items }) => {
             {/* eslint-disable-next-line react/prop-types */}
         {items.map((item) => {
             return(
-                <div key={item.createdAt} className="col-4 mt-5">
+                <div key={item.createdAt} className="col mt-5">
                     <Card photo={item} />
                 </div>
             );
