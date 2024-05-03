@@ -26,7 +26,7 @@ jobs:
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          entryPoint: './firestock-app/firebase.json'  # Specify the path to firebase.json
+          entryPoint: 'firestock-app'  # Specify the path to firebase.json
           # args: deploy --only hosting
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIRESTOCK_8B993 }}'
