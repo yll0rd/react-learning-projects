@@ -10,11 +10,26 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: cd firestock-app && npm ci && npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      # - uses: actions/checkout@v4
+      # - run: cd firestock-app && npm ci && npm run build
+      # - uses: FirebaseExtended/action-hosting-deploy@v0
+      
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Change directory and build
+        run: |
+          cd firestock-app
+          npm ci     # Or any other build commands
+          npm run build   # Or any other build commands
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          entryPoint: 'firestock-app/firebase.json'  # Specify the path to firebase.json
+          # args: deploy --only hosting
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_FIRESTOCK_8B993 }}'
           channelId: live
           projectId: firestock-8b993
+          
